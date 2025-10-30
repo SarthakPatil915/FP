@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Complex Number Program</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Java Program: Complex Number Operations</h1>
+        <pre>
+class Complex {
+    private double real;
+    private double imag;
+
+    public Complex() {
+        this.real = 0;
+        this.imag = 0;
+    }
+
+    public Complex(double real, double imag) {
+        this.real = real;
+        this.imag = imag;
+    }
+
+    public Complex add(Complex c) {
+        return new Complex(this.real + c.real, this.imag + c.imag);
+    }
+
+    public Complex subtract(Complex c) {
+        return new Complex(this.real - c.real, this.imag - c.imag);
+    }
+
+    public Complex multiply(Complex c) {
+        double r = this.real * c.real - this.imag * c.imag;
+        double i = this.real * c.imag + this.imag * c.real;
+        return new Complex(r, i);
+    }
+
+    public Complex divide(Complex c) {
+        double denominator = c.real * c.real + c.imag * c.imag;
+        double r = (this.real * c.real + this.imag * c.imag) / denominator;
+        double i = (this.imag * c.real - this.real * c.imag) / denominator;
+        return new Complex(r, i);
+    }
+
+    public void display() {
+        System.out.println(this.real + " + " + this.imag + "i");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Complex c1 = new Complex(4, 5);
+        Complex c2 = new Complex(2, 3);
+        Complex sum = c1.add(c2);
+        Complex diff = c1.subtract(c2);
+        Complex prod = c1.multiply(c2);
+        Complex quot = c1.divide(c2);
+        System.out.print("Sum: "); sum.display();
+        System.out.print("Difference: "); diff.display();
+        System.out.print("Product: "); prod.display();
+        System.out.print("Quotient: "); quot.display();
+    }
+}
+
+        </pre>
+
+         <h1>Output: Complex Number Operations</h1>
+        <pre>
+Sum: 6.0 + 8.0i
+Difference: 2.0 + 2.0i
+Product: -7.0 + 22.0i
+Quotient: 1.7692307692307692 + -0.15384615384615385i
+        </pre>
+
+        <div class="footer">© 2025 Final Practical | Prepared by Sarthak</div>
+    </div>
+</body>
+</html>

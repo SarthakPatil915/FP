@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Interface Program | Java Practical</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vehicle Interface Implementation in Java</h1>
+        <pre>
+interface Vehicle { 
+    void gearChange(int newGear); 
+    void speedUp(int increment); 
+    void applyBrakes(int decrement); 
+} 
+
+class Bicycle implements Vehicle { 
+    int speed = 10; 
+    int gear = 1; 
+
+    public void gearChange(int newGear) { 
+        gear = newGear; 
+        System.out.println("Bicycle gear changed to: " + gear); 
+    } 
+
+    public void speedUp(int increment) { 
+        speed += increment; 
+        System.out.println("Bicycle speed increased to: " + speed + " km/h"); 
+    } 
+
+    public void applyBrakes(int decrement) { 
+        speed -= decrement; 
+        System.out.println("Bicycle speed decreased to: " + speed + " km/h"); 
+    } 
+} 
+
+class Car implements Vehicle { 
+    int speed = 40; 
+    int gear = 1; 
+
+    public void gearChange(int newGear) { 
+        gear = newGear; 
+        System.out.println("Car gear changed to: " + gear); 
+    } 
+
+    public void speedUp(int increment) { 
+        speed += increment; 
+        System.out.println("Car speed increased to: " + speed + " km/h"); 
+    } 
+
+    public void applyBrakes(int decrement) { 
+        speed -= decrement; 
+        System.out.println("Car speed decreased to: " + speed + " km/h"); 
+    } 
+} 
+
+class Bike implements Vehicle { 
+    int speed = 25; 
+    int gear = 1; 
+
+    public void gearChange(int newGear) { 
+        gear = newGear; 
+        System.out.println("Bike gear changed to: " + gear); 
+    } 
+
+    public void speedUp(int increment) { 
+        speed += increment; 
+        System.out.println("Bike speed increased to: " + speed + " km/h"); 
+    } 
+
+    public void applyBrakes(int decrement) { 
+        speed -= decrement; 
+        System.out.println("Bike speed decreased to: " + speed + " km/h"); 
+    } 
+} 
+
+public class VehicleDemo { 
+    public static void main(String[] args) { 
+        Vehicle v; 
+        
+        v = new Bicycle(); 
+        v.gearChange(2); 
+        v.speedUp(5); 
+        v.applyBrakes(3); 
+        System.out.println(); 
+
+        v = new Car(); 
+        v.gearChange(3); 
+        v.speedUp(20); 
+        v.applyBrakes(10); 
+        System.out.println(); 
+
+        v = new Bike(); 
+        v.gearChange(4); 
+        v.speedUp(15); 
+        v.applyBrakes(5); 
+    } 
+} 
+        </pre>
+        <h1>Output: Vehicle Interface Program</h1>
+        <pre>
+Bicycle gear changed to: 2
+Bicycle speed increased to: 15 km/h
+Bicycle speed decreased to: 12 km/h
+
+Car gear changed to: 3
+Car speed increased to: 60 km/h
+Car speed decreased to: 50 km/h
+
+Bike gear changed to: 4
+Bike speed increased to: 40 km/h
+Bike speed decreased to: 35 km/h
+        </pre>
+        <div class="footer">
+            © 2025 Java Practical Exam | Vehicle Interface Program
+        </div>
+    </div>
+</body>
+</html>

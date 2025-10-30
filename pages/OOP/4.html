@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shape Area Calculator | Java Practical</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shape Area Calculator (Abstract Class Example)</h1>
+
+        <pre>
+import java.util.Scanner;
+
+abstract class Shape { 
+    double dim1, dim2; 
+    abstract void compute_area(); 
+} 
+
+class Triangle extends Shape { 
+    public Triangle(double base, double height) { 
+        dim1 = base; 
+        dim2 = height; 
+    } 
+    @Override 
+    void compute_area() { 
+        double area = 0.5 * dim1 * dim2; 
+        System.out.println("Area of Triangle: " + area); 
+    } 
+} 
+
+class Rectangle extends Shape { 
+    public Rectangle(double length, double breadth) { 
+        dim1 = length; 
+        dim2 = breadth; 
+    } 
+    @Override 
+    void compute_area() { 
+        double area = dim1 * dim2; 
+        System.out.println("Area of Rectangle: " + area); 
+    } 
+} 
+
+public class ShapeAreaCalculator { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        Shape shape; 
+        System.out.println("Choose Shape:\n1. Triangle\n2. Rectangle"); 
+        int choice = sc.nextInt(); 
+
+        if (choice == 1) { 
+            System.out.print("Enter base: "); 
+            double base = sc.nextDouble(); 
+            System.out.print("Enter height: "); 
+            double height = sc.nextDouble(); 
+            shape = new Triangle(base, height); 
+        } else if (choice == 2) { 
+            System.out.print("Enter length: "); 
+            double length = sc.nextDouble(); 
+            System.out.print("Enter breadth: "); 
+            double breadth = sc.nextDouble(); 
+            shape = new Rectangle(length, breadth); 
+        } else { 
+            System.out.println("Invalid choice."); 
+            sc.close(); 
+            return; 
+        } 
+
+        shape.compute_area(); 
+        sc.close(); 
+    } 
+} 
+        </pre>
+        <h1>Output: Shape Area Calculator</h1>
+        <pre>
+Choose Shape:
+1. Triangle
+2. Rectangle
+1
+Enter base: 10
+Enter height: 5
+Area of Triangle: 25.0
+
+Choose Shape:
+1. Triangle
+2. Rectangle
+2
+Enter length: 8
+Enter breadth: 6
+Area of Rectangle: 48.0
+        </pre>
+        <div class="footer">
+            © 2025 Java Practical Exam | Developed by Sarthak
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Employee Payroll System</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+<div class="container">
+<h1>Java Program: Employee Payroll System</h1>
+<pre>
+import java.util.Scanner;
+
+class Employee { 
+    String empName, empId, address, mailId; 
+    long mobileNo; 
+
+    public void getDetails() { 
+        Scanner sc = new Scanner(System.in); 
+        System.out.print("Enter Employee Name: "); 
+        empName = sc.nextLine(); 
+        System.out.print("Enter Employee ID: "); 
+        empId = sc.nextLine(); 
+        System.out.print("Enter Address: "); 
+        address = sc.nextLine(); 
+        System.out.print("Enter Mail ID: "); 
+        mailId = sc.nextLine(); 
+        System.out.print("Enter Mobile No: "); 
+        mobileNo = sc.nextLong(); 
+    } 
+
+    public void displayDetails() { 
+        System.out.println("Name: " + empName); 
+        System.out.println("ID: " + empId); 
+        System.out.println("Address: " + address); 
+        System.out.println("Mail ID: " + mailId); 
+        System.out.println("Mobile No: " + mobileNo); 
+    } 
+} 
+
+class Programmer extends Employee { 
+    double basicPay; 
+
+    public void getSalaryDetails() { 
+        Scanner sc = new Scanner(System.in); 
+        System.out.print("Enter Basic Pay: "); 
+        basicPay = sc.nextDouble(); 
+    } 
+
+    public void generateSalarySlip() { 
+        double da = 0.97 * basicPay; 
+        double hra = 0.10 * basicPay; 
+        double pf = 0.12 * basicPay; 
+        double staffClub = 0.001 * basicPay; 
+        double gross = basicPay + da + hra; 
+        double net = gross - pf - staffClub; 
+
+        System.out.println("\n--- Salary Slip: Programmer ---"); 
+        displayDetails(); 
+        System.out.println("Basic Pay: ₹" + basicPay); 
+        System.out.println("DA (97%): ₹" + da); 
+        System.out.println("HRA (10%): ₹" + hra); 
+        System.out.println("PF (12%): ₹" + pf); 
+        System.out.println("Staff Club Fund (0.1%): ₹" + staffClub); 
+        System.out.println("Gross Salary: ₹" + gross); 
+        System.out.println("Net Salary: ₹" + net); 
+    } 
+} 
+
+class TeamLead extends Programmer { 
+    public void generateSalarySlip() { 
+        System.out.println("\n--- Salary Slip: Team Lead ---"); 
+        super.generateSalarySlip(); 
+    } 
+} 
+
+class AssistantProjectManager extends Programmer { 
+    public void generateSalarySlip() { 
+        System.out.println("\n--- Salary Slip: Assistant Project Manager ---"); 
+        super.generateSalarySlip(); 
+    } 
+} 
+
+class ProjectManager extends Programmer { 
+    public void generateSalarySlip() { 
+        System.out.println("\n--- Salary Slip: Project Manager ---"); 
+        super.generateSalarySlip(); 
+    } 
+} 
+
+public class PayrollSystem { 
+    public static void main(String[] args) { 
+        Programmer p = new Programmer(); 
+        p.getDetails(); 
+        p.getSalaryDetails(); 
+        p.generateSalarySlip(); 
+
+        TeamLead tl = new TeamLead(); 
+        tl.getDetails(); 
+        tl.getSalaryDetails(); 
+        tl.generateSalarySlip(); 
+
+        AssistantProjectManager apm = new AssistantProjectManager(); 
+        apm.getDetails(); 
+        apm.getSalaryDetails(); 
+        apm.generateSalarySlip(); 
+
+        ProjectManager pm = new ProjectManager(); 
+        pm.getDetails(); 
+        pm.getSalaryDetails(); 
+        pm.generateSalarySlip(); 
+    } 
+} 
+
+</pre>
+
+<h1>Output: Employee Salary Slip</h1>
+        <pre>
+Enter Employee Name: Alice Sharma
+Enter Employee ID: EMP101
+Enter Address: Pune, Maharashtra
+Enter Mail ID: alice.sharma@example.com
+Enter Mobile No: 9876543210
+Enter Basic Pay: 50000
+--- Salary Slip: Programmer ---
+Name: Alice Sharma
+ID: EMP101
+Address: Pune, Maharashtra
+Mail ID: alice.sharma@example.com
+Mobile No: 9876543210
+Basic Pay: ₹50000.0
+DA (97%): ₹48500.0
+HRA (10%): ₹5000.0
+PF (12%): ₹6000.0
+Staff Club Fund (0.1%): ₹50.0
+Gross Salary: ₹103500.0
+Net Salary: ₹97450.0
+
+Enter Employee Name: Rahul Verma
+Enter Employee ID: EMP102
+Enter Address: Mumbai, Maharashtra
+Enter Mail ID: rahul.verma@example.com
+Enter Mobile No: 9123456789
+Enter Basic Pay: 60000
+--- Salary Slip: Team Lead ---
+Name: Rahul Verma
+ID: EMP102
+Address: Mumbai, Maharashtra
+Mail ID: rahul.verma@example.com
+Mobile No: 9123456789
+Basic Pay: ₹60000.0
+DA (97%): ₹58200.0
+HRA (10%): ₹6000.0
+PF (12%): ₹7200.0
+Staff Club Fund (0.1%): ₹60.0
+Gross Salary: ₹124200.0
+Net Salary: ₹116940.0
+        </pre>
+<div class="footer">© 2025 Final Practical | Prepared by Sarthak</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exception Handling Demo | Java Practical</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Java Program: Exception Handling Demo</h1>
+        <pre>
+import java.util.Scanner; 
+
+public class ExceptionHandlingDemo { 
+    public static void main(String[] args) { 
+        Scanner sc = new Scanner(System.in); 
+        String[] inputs = new String[2]; 
+
+        try { 
+            System.out.print("Enter first number: "); 
+            inputs[0] = sc.nextLine(); 
+            System.out.print("Enter second number: "); 
+            inputs[1] = sc.nextLine(); 
+
+            int num1 = Integer.parseInt(inputs[0]); 
+            int num2 = Integer.parseInt(inputs[1]); 
+            int result = num1 / num2; 
+
+            System.out.println("Result of division: " + result); 
+            System.out.println("Accessing third element: " + inputs[2]); 
+
+        } catch (ArithmeticException e) { 
+            System.out.println("Error: Division by zero is not allowed."); 
+        } catch (NumberFormatException e) { 
+            System.out.println("Error: Invalid number format. Please enter integers only."); 
+        } catch (ArrayIndexOutOfBoundsException e) { 
+            System.out.println("Error: Attempted to access an invalid array index."); 
+        } finally { 
+            sc.close(); 
+            System.out.println("Program execution completed."); 
+        } 
+    } 
+}
+        </pre>
+
+        <h2>Output:</h2>
+        <pre>
+Case 1: Valid Input
+Enter first number: 20
+Enter second number: 5
+Result of division: 4
+Error: Attempted to access an invalid array index.
+Program execution completed.
+
+Case 2: Division by Zero
+Enter first number: 10
+Enter second number: 0
+Error: Division by zero is not allowed.
+Program execution completed.
+
+Case 3: Invalid Number Format
+Enter first number: ten
+Enter second number: 2
+Error: Invalid number format. Please enter integers only.
+Program execution completed.
+
+Case 4: Array Index Out of Bounds (always triggered)
+Enter first number: 15
+Enter second number: 3
+Result of division: 5
+Error: Attempted to access an invalid array index.
+Program execution completed.
+        </pre>
+
+        <div class="footer">
+            © 2025 Java Practical Exam | Exception Handling Program
+        </div>
+    </div>
+</body>
+</html>
