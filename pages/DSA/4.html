@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Program: Binary Search Tree (BST) Operations</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Python Program: Binary Search Tree (BST) Implementation</h1>
+        <pre>
+#-----------------------------------------------
+# Program: Binary Search Tree (BST) in Python
+#-----------------------------------------------
+
+# Node class definition
+class Node:
+    key = None
+    left = None
+    right = None
+
+# Create new node
+def create_node(key):
+    node = Node()
+    node.key = key
+    node.left = None
+    node.right = None
+    return node
+
+# Insert node into BST
+def insert(root, key):
+    if root is None:
+        return create_node(key)
+    if key < root.key:
+        root.left = insert(root.left, key)
+    elif key > root.key:
+        root.right = insert(root.right, key)
+    else:
+        print(f"Duplicate entry {key} ignored!")
+    return root
+
+# Find minimum value node
+def min_value_node(node):
+    current = node
+    while current.left:
+        current = current.left
+    return current
+
+# Delete node
+def delete(root, key):
+    if root is None:
+        return root
+    if key < root.key:
+        root.left = delete(root.left, key)
+    elif key > root.key:
+        root.right = delete(root.right, key)
+    else:
+        if root.left is None:
+            return root.right
+        elif root.right is None:
+            return root.left
+        temp = min_value_node(root.right)
+        root.key = temp.key
+        root.right = delete(root.right, temp.key)
+    return root
+
+# Search in BST
+def search(root, key):
+    if root is None:
+        return False
+    if root.key == key:
+        return True
+    elif key < root.key:
+        return search(root.left, key)
+    else:
+        return search(root.right, key)
+
+# Inorder Traversal
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.key, end=" ")
+        inorder(root.right)
+
+# Depth of tree
+def depth(root):
+    if root is None:
+        return 0
+    return max(depth(root.left), depth(root.right)) + 1
+
+# Mirror image of tree
+def mirror(root):
+    if root:
+        mirror(root.left)
+        mirror(root.right)
+        temp = root.left
+        root.left = root.right
+        root.right = temp
+    return root
+
+# Copy tree
+def copy_tree(root):
+    if root is None:
+        return None
+    new_node = create_node(root.key)
+    new_node.left = copy_tree(root.left)
+    new_node.right = copy_tree(root.right)
+    return new_node
+
+# Display parents with children
+def display_parents(root):
+    if root:
+        if root.left or root.right:
+            print(f"Parent: {root.key}", end=" => Children: ")
+            if root.left:
+                print(root.left.key, end=" ")
+            if root.right:
+                print(root.right.key, end=" ")
+            print()
+        display_parents(root.left)
+        display_parents(root.right)
+
+# Display leaf nodes
+def display_leaves(root):
+    if root:
+        if root.left is None and root.right is None:
+            print(root.key, end=" ")
+        display_leaves(root.left)
+        display_leaves(root.right)
+
+# Level order traversal
+def level_order(root):
+    if root is None:
+        return
+    queue = [root]
+    while queue:
+        current = queue.pop(0)
+        print(current.key, end=" ")
+        if current.left:
+            queue.append(current.left)
+        if current.right:
+            queue.append(current.right)
+
+# Main program with match-case menu
+def main():
+    root = None
+    while True:
+        print("\nBinary Search Tree Operations")
+        print("1. Insert")
+        print("2. Delete")
+        print("3. Search")
+        print("4. Display Tree (Inorder)")
+        print("5. Display Depth of Tree")
+        print("6. Display Mirror Image")
+        print("7. Create Copy of Tree")
+        print("8. Display Parent Nodes with Children")
+        print("9. Display Leaf Nodes")
+        print("10. Display Tree Level Wise")
+        print("11. Exit")
+
+        try:
+            choice = int(input("Enter choice: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            continue
+
+        match choice:
+            case 1:
+                try:
+                    val = int(input("Enter value to insert: "))
+                    root = insert(root, val)
+                except ValueError:
+                    print("Invalid input. Please enter an integer.")
+            case 2:
+                try:
+                    val = int(input("Enter value to delete: "))
+                    root = delete(root, val)
+                except ValueError:
+                    print("Invalid input. Please enter an integer.")
+            case 3:
+                try:
+                    val = int(input("Enter value to search: "))
+                    print("Found" if search(root, val) else "Not Found")
+                except ValueError:
+                    print("Invalid input. Please enter an integer.")
+            case 4:
+                inorder(root)
+                print()
+            case 5:
+                print(f"Depth of tree: {depth(root)}")
+            case 6:
+                mirror(root)
+                print("Mirror image created.")
+            case 7:
+                copy_root = copy_tree(root)
+                print("Copy tree inorder traversal:")
+                inorder(copy_root)
+                print()
+            case 8:
+                display_parents(root)
+            case 9:
+                display_leaves(root)
+                print()
+            case 10:
+                level_order(root)
+                print()
+            case 11:
+                break
+            case _:
+                print("Invalid choice. Try again.")
+
+if __name__ == "__main__":
+    main()
+        </pre>
+
+        <h1>Output: Binary Search Tree Operations</h1>
+        <pre>
+Binary Search Tree Operations
+1. Insert
+2. Delete
+3. Search
+4. Display Tree (Inorder)
+5. Display Depth of Tree
+6. Display Mirror Image
+7. Create Copy of Tree
+8. Display Parent Nodes with Children
+9. Display Leaf Nodes
+10. Display Tree Level Wise
+11. Exit
+
+Enter choice: 1
+Enter value to insert: 50
+Enter choice: 1
+Enter value to insert: 30
+Enter choice: 1
+Enter value to insert: 70
+Enter choice: 4
+30 50 70
+Enter choice: 3
+Enter value to search: 70
+Found
+Enter choice: 5
+Depth of tree: 2
+Enter choice: 11
+        </pre>
+
+        <div class="footer">© 2025 Final Practical | Prepared by CodeHawks 🦅</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Program: Fractional Knapsack Problem</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Python Program: Fractional Knapsack Problem</h1>
+        <pre>
+# Fractional Knapsack Problem
+
+# Step 1: Enter data
+profits = [60, 100, 120]   # profit of each parcel
+weights = [10, 20, 30]     # weight of each parcel
+capacity = 50              # truck capacity
+
+# Step 2: Find profit per kg (profit/weight)
+ratio = []
+for i in range(len(profits)):
+    ratio.append(profits[i] / weights[i])
+
+# Step 3: Sort parcels by ratio (profit per kg)
+# We will sort all three lists together
+items = list(zip(profits, weights, ratio))
+items.sort(key=lambda x: x[2], reverse=True)
+
+# Step 4: Fill the truck
+total_profit = 0
+current_weight = 0
+
+for profit, weight, r in items:
+    if current_weight + weight &lt;= capacity:
+        # take full parcel
+        current_weight += weight
+        total_profit += profit
+    else:
+        # take partial parcel
+        remain = capacity - current_weight
+        total_profit += profit * (remain / weight)
+        break   # truck is full
+
+# Step 5: Print final answer
+print("Maximum Profit =", total_profit)
+        </pre>
+
+        <h1>Output: Fractional Knapsack Problem</h1>
+        <pre>
+Maximum Profit = 240.0
+        </pre>
+
+        <div class="footer">© 2025 Final Practical | Prepared by CodeHawks 🦅</div>
+    </div>
+</body>
+</html>

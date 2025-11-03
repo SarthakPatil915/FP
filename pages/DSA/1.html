@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ Search and Sort Programs</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>C++ Program: Linear Search</h1>
+        <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int n, a[10], i, flag = 0, Number;
+
+    cout &lt;&lt; "Enter Total Number of Elements: ";
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; "Enter Elements (Ascending Order): ";
+    for (i = 0; i &lt; n; i++) {
+        cin &gt;&gt; a[i];
+    }
+
+    cout &lt;&lt; "Enter Element to be Searched: ";
+    cin &gt;&gt; Number;
+
+    for (i = 0; i &lt; n; i++) {
+        if (Number == a[i]) {
+            flag = 1;
+            break;
+        } else {
+            flag = 0;
+        }
+    }
+
+    if (flag == 1) {
+        cout &lt;&lt; "Found at Index: " &lt;&lt; i &lt;&lt; endl;
+        cout &lt;&lt; "Element Found at Position: " &lt;&lt; i + 1;
+    } else {
+        cout &lt;&lt; "Element Not Found";
+    }
+
+    return 0;
+}
+        </pre>
+
+        <h1>Output: Linear Search</h1>
+        <pre>
+Enter Total Number of Elements: 5
+Enter Elements (Ascending Order): 10 20 30 40 50
+Enter Element to be Searched: 30
+Found at Index: 2
+Element Found at Position: 3
+        </pre>
+
+        <h1>C++ Program: Binary Search</h1>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;conio.h&gt;
+using namespace std;
+
+int main() {
+    int n, i, arr[10], number, low = 0, high, mid, flag = 0;
+
+    cout &lt;&lt; "Enter Total Number of Elements: ";
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; "Enter Elements (Ascending Order): ";
+    for (i = 0; i &lt; n; i++) {
+        cin &gt;&gt; arr[i];
+    }
+
+    high = n - 1;
+    cout &lt;&lt; "Enter Element to be Searched: ";
+    cin &gt;&gt; number;
+
+    while (low &lt;= high) {
+        mid = (low + high) / 2;
+        if (arr[mid] == number) {
+            flag = 1;
+            break;
+        } else if (number &gt; arr[mid]) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    if (flag == 1) {
+        cout &lt;&lt; "Found at Index: " &lt;&lt; mid &lt;&lt; endl;
+        cout &lt;&lt; "Element Found at Position: " &lt;&lt; mid + 1;
+    } else {
+        cout &lt;&lt; "Element Not Found";
+    }
+
+    return 0;
+}
+        </pre>
+
+        <h1>Output: Binary Search</h1>
+        <pre>
+Enter Total Number of Elements: 5
+Enter Elements (Ascending Order): 10 20 30 40 50
+Enter Element to be Searched: 30
+Found at Index: 2
+Element Found at Position: 3
+        </pre>
+
+        <h1>C++ Program: Bubble Sort</h1>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;conio.h&gt;
+using namespace std;
+
+int main() {
+    int n, i, j, arr[10], temp;
+
+    cout &lt;&lt; "Enter Total Number of Elements: ";
+    cin &gt;&gt; n;
+     
+    cout &lt;&lt; "Enter Elements: ";
+    for (i = 0; i &lt; n; i++) {
+        cin &gt;&gt; arr[i];
+    }
+
+    // Bubble Sort Algorithm
+    for (i = 0; i &lt; n - 1; i++) {
+        for (j = 0; j &lt; n - i - 1; j++) {
+            if (arr[j] &gt; arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    cout &lt;&lt; "Sorted Elements in Ascending Order: ";
+    for (i = 0; i &lt; n; i++) {
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+
+    return 0;
+}
+        </pre>
+
+        <h1>Output: Bubble Sort</h1>
+        <pre>
+Enter Total Number of Elements: 5
+Enter Elements: 50 20 10 40 30
+Sorted Elements in Ascending Order: 10 20 30 40 50
+        </pre>
+
+        <h1>C++ Program: Selection Sort</h1>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;conio.h&gt;
+using namespace std;
+
+int main() {
+    int n, i, j, arr[10], temp;
+
+    cout &lt;&lt; "Enter Total Number of Elements: ";
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; "Enter Elements: ";
+    for (i = 0; i &lt; n; i++) {
+        cin &gt;&gt; arr[i];
+    }
+
+    // Selection Sort Algorithm
+    for (i = 0; i &lt; n - 1; i++) {
+        for (j = i + 1; j &lt; n; j++) {
+            if (arr[i] &gt; arr[j]) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+
+    cout &lt;&lt; "Sorted Elements: ";
+    for (i = 0; i &lt; n; i++) {
+        cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+
+    return 0;
+}
+        </pre>
+
+        <h1>Output: Selection Sort</h1>
+        <pre>
+Enter Total Number of Elements: 5
+Enter Elements: 40 10 30 20 50
+Sorted Elements: 10 20 30 40 50
+        </pre>
+
+        <div class="footer">© 2025 Final Practical | Prepared by CodeHawks 🦅</div>
+    </div>
+</body>
+</html>

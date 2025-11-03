@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ Stack and Expression Conversion Programs</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>C++ Program: Stack Using Linked List</h1>
+        <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+// Node structure for stack
+struct Node {
+    int data;
+    Node* next;
+};
+
+int main() {
+    Node* top = NULL; // Points to the top of the stack
+    Node* temp;
+    int choice, value;
+
+    do {
+        cout &lt;&lt; "\n--- Stack Menu ---";
+        cout &lt;&lt; "\n1. Push";
+        cout &lt;&lt; "\n2. Pop";
+        cout &lt;&lt; "\n3. Display";
+        cout &lt;&lt; "\n4. Exit";
+        cout &lt;&lt; "\nEnter your choice: ";
+        cin &gt;&gt; choice;
+
+        switch (choice) {
+            case 1: // Push
+                temp = new Node;
+                cout &lt;&lt; "Enter value to push: ";
+                cin &gt;&gt; value;
+                temp-&gt;data = value;
+                temp-&gt;next = top;
+                top = temp;
+                cout &lt;&lt; value &lt;&lt; " pushed onto the stack.";
+                break;
+
+            case 2: // Pop
+                if (top == NULL)
+                    cout &lt;&lt; "Stack Underflow! Nothing to pop.";
+                else {
+                    cout &lt;&lt; "Popped element: " &lt;&lt; top-&gt;data;
+                    temp = top;
+                    top = top-&gt;next;
+                    delete temp;
+                }
+                break;
+
+            case 3: // Display
+                if (top == NULL)
+                    cout &lt;&lt; "Stack is empty.";
+                else {
+                    cout &lt;&lt; "Stack elements (top to bottom): ";
+                    temp = top;
+                    while (temp != NULL) {
+                        cout &lt;&lt; temp-&gt;data &lt;&lt; " ";
+                        temp = temp-&gt;next;
+                    }
+                    cout &lt;&lt; endl;
+                }
+                break;
+
+            case 4:
+                cout &lt;&lt; "Exiting program.";
+                break;
+
+            default:
+                cout &lt;&lt; "Invalid choice! Please try again.";
+        }
+    } while (choice != 4);
+    return 0;
+}
+        </pre>
+
+        <h1>Output: Stack Using Linked List</h1>
+        <pre>
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value to push: 10
+10 pushed onto the stack.
+        </pre>
+
+        <h1>C++ Program: Infix to Postfix Conversion Using Stack</h1>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+// Node structure for linked list (stack)
+struct Node {
+    char data;
+    Node* next;
+};
+
+// Function to return operator precedence
+int priority(char c) {
+    if (c == '+' || c == '-')
+        return 1;
+    else if (c == '*' || c == '/')
+        return 2;
+    else if (c == '(')
+        return 0; // Lowest priority
+    else
+        return -1; // For operands
+}
+
+int main() {
+    char infix[100];
+    Node* top = NULL; // Stack top pointer
+    Node* temp;
+
+    cout &lt;&lt; "Enter infix expression: ";
+    cin &gt;&gt; infix;
+
+    cout &lt;&lt; "Postfix expression is: ";
+
+    int i = 0;
+    while (infix[i] != '\0') {
+        char ch = infix[i];
+
+        // Operand → print directly
+        if ((ch &gt;= 'a' && ch &lt;= 'z') || (ch &gt;= 'A' && ch &lt;= 'Z') || isdigit(ch)) {
+            cout &lt;&lt; ch;
+        }
+
+        // Left parenthesis → push to stack
+        else if (ch == '(') {
+            temp = new Node;
+            temp-&gt;data = ch;
+            temp-&gt;next = top;
+            top = temp;
+        }
+
+        // Right parenthesis → pop till '('
+        else if (ch == ')') {
+            while (top != NULL && top-&gt;data != '(') {
+                cout &lt;&lt; top-&gt;data;
+                temp = top;
+                top = top-&gt;next;
+                delete temp;
+            }
+            if (top != NULL && top-&gt;data == '(') {
+                temp = top;
+                top = top-&gt;next;
+                delete temp;
+            }
+        }
+
+        // Operator → compare precedence and push/pop accordingly
+        else {
+            while (top != NULL && priority(top-&gt;data) &gt;= priority(ch)) {
+                cout &lt;&lt; top-&gt;data;
+                temp = top;
+                top = top-&gt;next;
+                delete temp;
+            }
+            temp = new Node;
+            temp-&gt;data = ch;
+            temp-&gt;next = top;
+            top = temp;
+        }
+        i++;
+    }
+
+    // Pop any remaining operators from the stack
+    while (top != NULL) {
+        cout &lt;&lt; top-&gt;data;
+        temp = top;
+        top = top-&gt;next;
+        delete temp;
+    }
+
+    return 0;
+}
+        </pre>
+
+        <h1>Output: Infix to Postfix Conversion</h1>
+        <pre>
+Enter infix expression: (A+B)*C
+Postfix expression is: AB+C*
+        </pre>
+
+        <h1>C++ Program: Infix to Prefix Conversion Using Stack</h1>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;cctype&gt; // for isalnum
+using namespace std;
+
+struct Node {
+    char data;
+    Node* next;
+};
+
+int main() {
+    char infix[100], result[100];
+    int i = 0, k = 0;
+
+    cout &lt;&lt; "Enter infix expression: ";
+    cin &gt;&gt; infix;
+
+    // Step 1: Reverse infix and swap '(' and ')'
+    int len = strlen(infix);
+    for (i = 0; i &lt; len / 2; i++) {
+        char temp = infix[i];
+        infix[i] = infix[len - i - 1];
+        infix[len - i - 1] = temp;
+    }
+
+    for (i = 0; i &lt; len; i++) {
+        if (infix[i] == '(')
+            infix[i] = ')';
+        else if (infix[i] == ')')
+            infix[i] = '(';
+    }
+
+    // Step 2: Initialize stack
+    Node* top = NULL;
+
+    // Step 3: Process each character of reversed infix
+    i = 0;
+    while (infix[i] != '\0') {
+        char ch = infix[i];
+
+        // If operand, add to result
+        if (isalnum(ch)) {
+            result[k++] = ch;
+        }
+
+        // If '(', push to stack
+        else if (ch == '(') {
+            Node* temp = new Node;
+            temp-&gt;data = ch;
+            temp-&gt;next = top;
+            top = temp;
+        }
+
+        // If ')', pop and add to result until '(' is found
+        else if (ch == ')') {
+            while (top != NULL && top-&gt;data != '(') {
+                result[k++] = top-&gt;data;
+                Node* temp = top;
+                top = top-&gt;next;
+                delete temp;
+            }
+            if (top != NULL && top-&gt;data == '(') {
+                Node* temp = top;
+                top = top-&gt;next;
+                delete temp;
+            }
+        }
+
+        // If operator
+        else {
+            int p1;
+            if (ch == '+' || ch == '-')
+                p1 = 1;
+            else
+                p1 = 2;
+
+            while (top != NULL) {
+                char topOp = top-&gt;data;
+                int p2;
+                if (topOp == '+' || topOp == '-') p2 = 1;
+                else if (topOp == '*' || topOp == '/') p2 = 2;
+                else p2 = 0;
+
+                if (p2 &gt;= p1) {
+                    result[k++] = top-&gt;data;
+                    Node* temp = top;
+                    top = top-&gt;next;
+                    delete temp;
+                } else {
+                    break;
+                }
+            }
+
+            Node* temp = new Node;
+            temp-&gt;data = ch;
+            temp-&gt;next = top;
+            top = temp;
+        }
+        i++;
+    }
+
+    // Step 4: Pop remaining operators
+    while (top != NULL) {
+        result[k++] = top-&gt;data;
+        Node* temp = top;
+        top = top-&gt;next;
+        delete temp;
+    }
+
+    result[k] = '\0';
+
+    // Step 5: Display final prefix expression
+    cout &lt;&lt; "Prefix expression is: " &lt;&lt; result &lt;&lt; endl;
+
+    return 0;
+}
+        </pre>
+
+        <h1>Output: Infix to Prefix Conversion</h1>
+        <pre>
+Enter infix expression: (A+B)*C
+Prefix expression is: *+ABC
+        </pre>
+
+        <div class="footer">© 2025 Final Practical | Prepared by CodeHawks 🦅</div>
+    </div>
+</body>
+</html>

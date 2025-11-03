@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ Program: Circular Queue Implementation</title>
+<link rel="stylesheet" href="../../assets/css/code.css">
+</head>
+<body>
+    <div class="container">
+        <h1>C++ Program: Circular Queue Implementation</h1>
+        <pre>
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#define max 5
+
+using namespace std;
+
+int main() {
+    int queue[max], front = 0, rear = -1;
+    int ch = 0, data, temp, count = 0, count1, front1;
+
+    do {
+        cout &lt;&lt; "\n1. Enqueue - Insert the element";
+        cout &lt;&lt; "\n2. Dequeue - Delete the element";
+        cout &lt;&lt; "\n3. Display the queue";
+        cout &lt;&lt; "\n4. Quit";
+        cout &lt;&lt; "\nEnter Your Choice: ";
+        cin &gt;&gt; ch;
+
+        switch (ch) {
+            case 1:
+                if (count == max)
+                    cout &lt;&lt; "Queue is full";
+                else {
+                    cout &lt;&lt; "Enter data: ";
+                    cin &gt;&gt; data;
+                    rear = (rear + 1) % max;
+                    queue[rear] = data;
+                    count++;
+                }
+                count1 = count;
+                break;
+
+            case 2:
+                if (count == 0)
+                    cout &lt;&lt; "\nQueue is empty";
+                else {
+                    data = queue[front];
+                    cout &lt;&lt; data &lt;&lt; " is deleted\n";
+                    front = (front + 1) % max;
+                    count--;
+                }
+                front1 = front;
+                break;
+
+            case 3:
+                count1 = count;
+                front1 = front;
+                if (count1 == 0)
+                    cout &lt;&lt; "\nQueue is empty";
+                else {
+                    cout &lt;&lt; "Queue elements are: ";
+                    while (count1 &gt; 0) {
+                        cout &lt;&lt; queue[front1] &lt;&lt; " ";
+                        front1 = (front1 + 1) % max;
+                        count1--;
+                    }
+                }
+                break;
+
+            case 4:
+                exit(0);
+
+            default:
+                cout &lt;&lt; "Invalid choice!";
+        } // end of switch case
+
+        cout &lt;&lt; "\nContinue [1/0]: ";
+        cin &gt;&gt; ch;
+
+    } while (ch == 1);
+
+    return 0;
+} // End of main
+        </pre>
+
+        <h1>Output: Circular Queue Implementation</h1>
+        <pre>
+1. Enqueue - Insert the element
+2. Dequeue - Delete the element
+3. Display the queue
+4. Quit
+Enter Your Choice: 1
+Enter data: 10
+Continue [1/0]: 1
+
+Enter Your Choice: 1
+Enter data: 20
+Continue [1/0]: 1
+
+Enter Your Choice: 3
+Queue elements are: 10 20
+Continue [1/0]: 1
+
+Enter Your Choice: 2
+10 is deleted
+Continue [1/0]: 1
+
+Enter Your Choice: 3
+Queue elements are: 20
+Continue [1/0]: 0
+        </pre>
+
+        <div class="footer">© 2025 Final Practical | Prepared by CodeHawks 🦅</div>
+    </div>
+</body>
+</html>

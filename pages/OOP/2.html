@@ -17,7 +17,7 @@ class Publication {
 
     public void saleCopy() { 
         double total = price * copies; 
-        System.out.println("Total sales for " + title + ": ₹" + total); 
+        System.out.println("Total sales for " + title + ": RS." + total); 
     } 
 } 
 
@@ -56,7 +56,7 @@ class Magazine extends Publication {
     } 
 
     public void display() { 
-        System.out.println("Magazine: " + title + " - Issue: " + currentIssue); 
+        System.out.println("Magazine: " + title + " - Issue: " + currentIssue + " - Ordered Copies: " + orderQty); 
         saleCopy(); 
     } 
 } 
@@ -79,12 +79,12 @@ public class Main {
         <h1>Output: Book & Magazine Sales</h1>
         <pre>
 Book: Java Programming by James Gosling
-Total sales for Java Programming: ₹4500.0
-
-Magazine: Tech Monthly - Issue: September 2025
-Total sales for Tech Monthly: ₹3000.0
+Total sales for Java Programming: RS.4500.0
+Magazine: Tech Monthly - Issue: September 2025 - Ordered Copies: 25
+Total sales for Tech Monthly: RS.3000.0
         </pre>
-        <div class="footer">© 2025 Final Practical | Prepared by Sarthak</div>
+        <div class="footer">© 2025 Final Practical | Prepared by CodeHawks 🦅</div>
+        <div><h5>Note : Program Save by Main.java</h5></div>
     </div>
 </body>
 </html>
