@@ -10,48 +10,32 @@
     <div class="container">
         <h1>Python Program: Naive String Matching Algorithm</h1>
         <pre>
-def search_pattern(pattern, text):
-    # Get the lengths of the pattern and the text
-    m = len(pattern)
-    n = len(text)
+def naive_string_match(text, pattern):
+    n = len(text)        # length of text
+    m = len(pattern)     # length of pattern
+    
+    print("Text:", text)
+    print("Pattern:", pattern)
+    print("\nPattern found at indices:", end=" ")
 
-    # A loop to slide pattern over text one by one
+    # Slide the pattern one by one
     for i in range(n - m + 1):
-        # For current index i, check for pattern match
-        j = 0
-        while j &lt; m and text[i + j] == pattern[j]:
-            j += 1
-        
-        # If the entire pattern matches the text starting at index i
-        if j == m:
-            print(f"Pattern found at index {i}")
+        # Check if substring from i matches the pattern
+        if text[i:i+m] == pattern:
+            print(i, end=" ")
 
-
-# Example usage
-if __name__ == "__main__":
-    # Example 1
-    text1 = "AABAACAADAABAABA"
-    pattern1 = "AABA"
-    
-    print("Example 1:")
-    search_pattern(pattern1, text1)
-    
-    # Example 2
-    text2 = "agd"
-    pattern2 = "g"
-    print("\nExample 2:")
-    search_pattern(pattern2, text2)
+# Example
+text = "AABAACAADAABAABA"
+pattern = "AABA"
+naive_string_match(text, pattern)
         </pre>
 
         <h1>Output: Naive String Matching Algorithm</h1>
         <pre>
-Example 1:
-Pattern found at index 0
-Pattern found at index 9
-Pattern found at index 12
+Text: AABAACAADAABAABA
+Pattern: AABA
 
-Example 2:
-Pattern found at index 1
+Pattern found at indices: 0 9 12
         </pre>
 
         <div class="footer">© 2025 Final Practical | Prepared by CodeHawks 🦅</div>
