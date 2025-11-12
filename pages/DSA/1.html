@@ -12,388 +12,384 @@
         <h1>Student Data Base (Bubble Sort)</h1>
         <pre>
 #include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
+#include &lt;cstring&gt;
 using namespace std;
 
 struct Student {
     int id;
-    string name;
+    char name[50];
     float cgpa;
-};
+} s[10];
 
-// Function to add student
-void addStudent(vector&lt;Student&gt; &amp;list) {
-    Student s;
-    cout &lt;&lt; "\nEnter ID: ";
-    cin &gt;&gt; s.id;
-    cin.ignore();
-    cout &lt;&lt; "Enter Name: ";
-    getline(cin, s.name);
-    cout &lt;&lt; "Enter CGPA: ";
-    cin &gt;&gt; s.cgpa;
-    list.push_back(s);
-    cout &lt;&lt; "Student added!\n";
-}
+int count = 0;
 
-// Function to display all students
-void showStudents(const vector&lt;Student&gt; &amp;list) {
-    if (list.empty()) {
-        cout &lt;&lt; "No students found!\n";
+// Add a student
+void addStudent() {
+    if (count &gt;= 10) {
+        cout &lt;&lt; "Student limit reached!\n";
         return;
     }
-    cout &lt;&lt; "\nID\tName\t\tCGPA\n";
-    for (auto &amp;s : list)
-        cout &lt;&lt; s.id &lt;&lt; "\t" &lt;&lt; s.name &lt;&lt; "\t\t" &lt;&lt; s.cgpa &lt;&lt; "\n";
+    cout &lt;&lt; "Enter Student ID: ";
+    cin &gt;&gt; s[count].id;
+    cin.ignore();
+    cout &lt;&lt; "Enter Student Name: ";
+    cin.getline(s[count].name, 50);
+    cout &lt;&lt; "Enter CGPA: ";
+    cin &gt;&gt; s[count].cgpa;
+    count++;
 }
 
-// Linear search by name
-void linearSearch(const vector&lt;Student&gt; &amp;list, string name) {
-    bool found = false;
-    for (auto &amp;s : list) {
-        if (s.name == name) {
-            cout &lt;&lt; "\nFound: ID=" &lt;&lt; s.id &lt;&lt; ", Name=" &lt;&lt; s.name &lt;&lt; ", CGPA=" &lt;&lt; s.cgpa &lt;&lt; "\n";
-            found = true;
-            break;
-        }
+// Display all students
+void displayStudents() {
+    if (count == 0) {
+        cout &lt;&lt; "No students to display.\n";
+        return;
     }
-    if (!found)
-        cout &lt;&lt; "Student not found!\n";
+    cout &lt;&lt; "\n--- Student Records ---\n";
+    for (int i = 0; i &lt; count; i++)
+        cout &lt;&lt; "ID: " &lt;&lt; s[i].id &lt;&lt; ", Name: " &lt;&lt; s[i].name
+             &lt;&lt; ", CGPA: " &lt;&lt; s[i].cgpa &lt;&lt; "\n";
 }
 
-// Sort students by name using Bubble Sort
-void bubbleSortByName(vector&lt;Student&gt; &amp;list) {
-    int n = list.size();
-    for (int i = 0; i &lt; n - 1; i++) {
-        for (int j = 0; j &lt; n - i - 1; j++) {
-            if (list[j].name &gt; list[j + 1].name) {
-                swap(list[j], list[j + 1]);
+// Bubble Sort by Name (A–Z)
+void bubbleSortByName() {
+    if (count == 0) {
+        cout &lt;&lt; "No students to sort.\n";
+        return;
+    }
+
+    for (int i = 0; i &lt; count - 1; i++) {
+        for (int j = 0; j &lt; count - i - 1; j++) {
+            if (strcmp(s[j].name, s[j + 1].name) &gt; 0) {
+                Student temp = s[j];
+                s[j] = s[j + 1];
+                s[j + 1] = temp;
             }
         }
     }
-    cout &lt;&lt; "Students sorted by name using Bubble Sort!\n";
+
+    cout &lt;&lt; "\nStudents sorted by Name (A–Z):\n";
+    displayStudents();
 }
 
+// Main menu
 int main() {
-    vector&lt;Student&gt; students;
     int choice;
-    string name;
-
-    while (true) {
-        cout &lt;&lt; "\n--- STUDENT DATABASE ---\n";
-        cout &lt;&lt; "1. Add Student\n2. Show Students\n3. Search by Name\n4. Sort by Name (Bubble Sort)\n5. Exit\n";
-        cout &lt;&lt; "Enter choice: ";
+    do {
+        cout &lt;&lt; "\n=== Student Database (Bubble Sort) ===\n";
+        cout &lt;&lt; "1. Add Student\n2. Display Students\n3. Sort by Name (A–Z)\n4. Exit\n";
+        cout &lt;&lt; "Enter your choice: ";
         cin &gt;&gt; choice;
-        cin.ignore();
 
-        if (choice == 1) addStudent(students);
-        else if (choice == 2) showStudents(students);
-        else if (choice == 3) {
-            cout &lt;&lt; "Enter name to search: ";
-            getline(cin, name);
-            linearSearch(students, name);
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: displayStudents(); break;
+            case 3: bubbleSortByName(); break;
+            case 4: cout &lt;&lt; "Exiting...\n"; break;
+            default: cout &lt;&lt; "Invalid choice!\n";
         }
-        else if (choice == 4) bubbleSortByName(students);
-        else if (choice == 5) {
-            cout &lt;&lt; "Exiting...\n";
-            break;
-        }
-        else cout &lt;&lt; "Invalid choice!\n";
-    }
+    } while (choice != 4);
+
     return 0;
 }
 </pre>
 
-       
 
         <!-- Student Data Base (Selection Sort) -->
         <h1>Student Data Base (Selection Sort)</h1>
         <pre>
 #include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
+#include &lt;cstring&gt;
 using namespace std;
 
 struct Student {
     int id;
-    string name;
+    char name[50];
     float cgpa;
-};
+} s[10];
 
-// Function to add student
-void addStudent(vector&lt;Student&gt; &amp;list) {
-    Student s;
-    cout &lt;&lt; "\nEnter ID: ";
-    cin &gt;&gt; s.id;
-    cin.ignore();
-    cout &lt;&lt; "Enter Name: ";
-    getline(cin, s.name);
-    cout &lt;&lt; "Enter CGPA: ";
-    cin &gt;&gt; s.cgpa;
-    list.push_back(s);
-    cout &lt;&lt; "Student added!\n";
-}
+int count = 0;
 
-// Function to display all students
-void showStudents(const vector&lt;Student&gt; &amp;list) {
-    if (list.empty()) {
-        cout &lt;&lt; "No students found!\n";
+// Add a student
+void addStudent() {
+    if (count &gt;= 10) {
+        cout &lt;&lt; "Student limit reached!\n";
         return;
     }
-    cout &lt;&lt; "\nID\tName\t\tCGPA\n";
-    for (auto &amp;s : list)
-        cout &lt;&lt; s.id &lt;&lt; "\t" &lt;&lt; s.name &lt;&lt; "\t\t" &lt;&lt; s.cgpa &lt;&lt; "\n";
+    cout &lt;&lt; "Enter Student ID: ";
+    cin &gt;&gt; s[count].id;
+    cin.ignore();
+    cout &lt;&lt; "Enter Student Name: ";
+    cin.getline(s[count].name, 50);
+    cout &lt;&lt; "Enter CGPA: ";
+    cin &gt;&gt; s[count].cgpa;
+    count++;
 }
 
-// Linear search by name
-void linearSearch(const vector&lt;Student&gt; &amp;list, string name) {
-    bool found = false;
-    for (auto &amp;s : list) {
-        if (s.name == name) {
-            cout &lt;&lt; "\nFound: ID=" &lt;&lt; s.id &lt;&lt; ", Name=" &lt;&lt; s.name &lt;&lt; ", CGPA=" &lt;&lt; s.cgpa &lt;&lt; "\n";
-            found = true;
-            break;
-        }
+// Display all students
+void displayStudents() {
+    if (count == 0) {
+        cout &lt;&lt; "No students to display.\n";
+        return;
     }
-    if (!found)
-        cout &lt;&lt; "Student not found!\n";
+    cout &lt;&lt; "\n--- Student Records ---\n";
+    for (int i = 0; i &lt; count; i++)
+        cout &lt;&lt; "ID: " &lt;&lt; s[i].id &lt;&lt; ", Name: " &lt;&lt; s[i].name
+             &lt;&lt; ", CGPA: " &lt;&lt; s[i].cgpa &lt;&lt; "\n";
 }
 
-// Sort students by name using Selection Sort
-void selectionSortByName(vector&lt;Student&gt; &amp;list) {
-    int n = list.size();
-    for (int i = 0; i &lt; n - 1; i++) {
-        int minIndex = i;
-        for (int j = i + 1; j &lt; n; j++) {
-            if (list[j].name &lt; list[minIndex].name) {
-                minIndex = j;
+// Selection sort by Name (A–Z)
+void selectionSortByName() {
+    if (count == 0) {
+        cout &lt;&lt; "No students to sort.\n";
+        return;
+    }
+    for (int i = 0; i &lt; count - 1; i++) {
+        for (int j = i + 1; j &lt; count; j++) {
+            if (strcmp(s[i].name, s[j].name) &gt; 0) {
+                Student temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
             }
         }
-        if (minIndex != i) {
-            swap(list[i], list[minIndex]);
-        }
     }
-    cout &lt;&lt; "Students sorted by name using Selection Sort!\n";
+    cout &lt;&lt; "\nStudents sorted by Name (A–Z):\n";
+    displayStudents();
 }
 
 int main() {
-    vector&lt;Student&gt; students;
     int choice;
-    string name;
-
-    while (true) {
-        cout &lt;&lt; "\n--- STUDENT DATABASE ---\n";
-        cout &lt;&lt; "1. Add Student\n2. Show Students\n3. Search by Name\n4. Sort by Name (Selection Sort)\n5. Exit\n";
-        cout &lt;&lt; "Enter choice: ";
+    do {
+        cout &lt;&lt; "\n=== Student Database (Selection Sort) ===\n";
+        cout &lt;&lt; "1. Add Student\n2. Display Students\n3. Sort by Name (A–Z)\n4. Exit\n";
+        cout &lt;&lt; "Enter your choice: ";
         cin &gt;&gt; choice;
-        cin.ignore();
 
-        if (choice == 1) addStudent(students);
-        else if (choice == 2) showStudents(students);
-        else if (choice == 3) {
-            cout &lt;&lt; "Enter name to search: ";
-            getline(cin, name);
-            linearSearch(students, name);
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: displayStudents(); break;
+            case 3: selectionSortByName(); break;
+            case 4: cout &lt;&lt; "Exiting...\n"; break;
+            default: cout &lt;&lt; "Invalid choice!\n";
         }
-        else if (choice == 4) selectionSortByName(students);
-        else if (choice == 5) {
-            cout &lt;&lt; "Exiting...\n";
-            break;
-        }
-        else cout &lt;&lt; "Invalid choice!\n";
-    }
+    } while (choice != 4);
     return 0;
 }
 </pre>
+
 
         <!-- Student Database (Linear Search) -->
         <h1>Student Data Base (Linear Search)</h1>
         <pre>
 #include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
+#include &lt;cstring&gt;
 using namespace std;
 
 struct Student {
     int id;
-    string name;
+    char name[50];
     float cgpa;
-};
+} s[10];
 
-// Function to add student
-void addStudent(vector&lt;Student&gt; &amp;list) {
-    Student s;
-    cout &lt;&lt; "\nEnter ID: ";
-    cin &gt;&gt; s.id;
-    cin.ignore();
-    cout &lt;&lt; "Enter Name: ";
-    getline(cin, s.name);
-    cout &lt;&lt; "Enter CGPA: ";
-    cin &gt;&gt; s.cgpa;
-    list.push_back(s);
-    cout &lt;&lt; "Student added!\n";
-}
+int countStudents = 0;
 
-// Function to display all students
-void showStudents(const vector&lt;Student&gt; &amp;list) {
-    if (list.empty()) {
-        cout &lt;&lt; "No students found!\n";
+// Add a student
+void addStudent() {
+    if (countStudents &gt;= 10) {
+        cout &lt;&lt; "Student limit reached!\n";
         return;
     }
-    cout &lt;&lt; "\nID\tName\t\tCGPA\n";
-    for (auto &amp;s : list)
-        cout &lt;&lt; s.id &lt;&lt; "\t" &lt;&lt; s.name &lt;&lt; "\t\t" &lt;&lt; s.cgpa &lt;&lt; "\n";
+
+    cout &lt;&lt; "Enter Student ID: ";
+    cin &gt;&gt; s[countStudents].id;
+    cin.ignore(); // clear leftover newline
+
+    cout &lt;&lt; "Enter Student Name: ";
+    cin.getline(s[countStudents].name, 50);
+
+    cout &lt;&lt; "Enter CGPA: ";
+    cin &gt;&gt; s[countStudents].cgpa;
+
+    countStudents++;
+    cout &lt;&lt; "Student added successfully!\n";
 }
 
-// Linear search by name
-void linearSearch(const vector&lt;Student&gt; &amp;list, string name) {
+// Display all students
+void displayStudents() {
+    if (countStudents == 0) {
+        cout &lt;&lt; "No students to display.\n";
+        return;
+    }
+
+    cout &lt;&lt; "\n--- Student Records ---\n";
+    for (int i = 0; i &lt; countStudents; i++) {
+        cout &lt;&lt; "ID: " &lt;&lt; s[i].id
+             &lt;&lt; ", Name: " &lt;&lt; s[i].name
+             &lt;&lt; ", CGPA: " &lt;&lt; s[i].cgpa &lt;&lt; "\n";
+    }
+}
+
+// Linear search by ID
+void linearSearchByID() {
+    if (countStudents == 0) {
+        cout &lt;&lt; "No students in database.\n";
+        return;
+    }
+
+    int number;
     bool found = false;
-    for (auto &amp;s : list) {
-        if (s.name == name) {
-            cout &lt;&lt; "\nFound: ID=" &lt;&lt; s.id &lt;&lt; ", Name=" &lt;&lt; s.name &lt;&lt; ", CGPA=" &lt;&lt; s.cgpa &lt;&lt; "\n";
+    cout &lt;&lt; "Enter ID to search: ";
+    cin &gt;&gt; number;
+
+    for (int i = 0; i &lt; countStudents; i++) {
+        if (s[i].id == number) {
+            cout &lt;&lt; "\nStudent Found:\n";
+            cout &lt;&lt; "ID: " &lt;&lt; s[i].id
+                 &lt;&lt; ", Name: " &lt;&lt; s[i].name
+                 &lt;&lt; ", CGPA: " &lt;&lt; s[i].cgpa &lt;&lt; "\n";
             found = true;
             break;
         }
     }
+
     if (!found)
-        cout &lt;&lt; "Student not found!\n";
+        cout &lt;&lt; "Student ID not found.\n";
 }
 
+// Main menu
 int main() {
-    vector&lt;Student&gt; students;
     int choice;
-    string name;
-
-    while (true) {
-        cout &lt;&lt; "\n--- STUDENT DATABASE ---\n";
-        cout &lt;&lt; "1. Add Student\n2. Show Students\n3. Search by Name\n4. Exit\n";
-        cout &lt;&lt; "Enter choice: ";
+    do {
+        cout &lt;&lt; "\n=== Student Database (Linear Search) ===\n";
+        cout &lt;&lt; "1. Add Student\n2. Display Students\n3. Search by ID\n4. Exit\n";
+        cout &lt;&lt; "Enter your choice: ";
         cin &gt;&gt; choice;
-        cin.ignore();
+        cin.ignore(); // clear input buffer
 
-        if (choice == 1) addStudent(students);
-        else if (choice == 2) showStudents(students);
-        else if (choice == 3) {
-            cout &lt;&lt; "Enter name to search: ";
-            getline(cin, name);
-            linearSearch(students, name);
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: displayStudents(); break;
+            case 3: linearSearchByID(); break;
+            case 4: cout &lt;&lt; "Exiting...\n"; break;
+            default: cout &lt;&lt; "Invalid choice!\n";
         }
-        else if (choice == 4) {
-            cout &lt;&lt; "Exiting...\n";
-            break;
-        }
-        else cout &lt;&lt; "Invalid choice!\n";
-    }
+    } while (choice != 4);
+
     return 0;
 }
 </pre>
+
 
 
         <!-- Student Database (Binary Search) -->
         <h1>Student Database (Binary Search)</h1>
         <pre>
 #include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-#include &lt;algorithm&gt;
+#include &lt;cstring&gt;
 using namespace std;
 
 struct Student {
     int id;
-    string name;
+    char name[50];
     float cgpa;
-};
+} s[10];
 
-// Function to add student
-void addStudent(vector&lt;Student&gt; &amp;list) {
-    Student s;
-    cout &lt;&lt; "\nEnter ID: ";
-    cin &gt;&gt; s.id;
-    cin.ignore();
-    cout &lt;&lt; "Enter Name: ";
-    getline(cin, s.name);
-    cout &lt;&lt; "Enter CGPA: ";
-    cin &gt;&gt; s.cgpa;
-    list.push_back(s);
-    cout &lt;&lt; "Student added!\n";
-}
+int countStudents = 0;
 
-// Function to display all students
-void showStudents(const vector&lt;Student&gt; &amp;list) {
-    if (list.empty()) {
-        cout &lt;&lt; "No students found!\n";
+// Add a student (must be entered in sorted order by ID)
+void addStudent() {
+    if (countStudents &gt;= 10) {
+        cout &lt;&lt; "Student limit reached!\n";
         return;
     }
-    cout &lt;&lt; "\nID\tName\t\tCGPA\n";
-    for (auto &amp;s : list)
-        cout &lt;&lt; s.id &lt;&lt; "\t" &lt;&lt; s.name &lt;&lt; "\t\t" &lt;&lt; s.cgpa &lt;&lt; "\n";
+
+    cout &lt;&lt; "Enter Student ID (in ascending order): ";
+    cin &gt;&gt; s[countStudents].id;
+    cin.ignore();
+
+    cout &lt;&lt; "Enter Student Name: ";
+    cin.getline(s[countStudents].name, 50);
+
+    cout &lt;&lt; "Enter CGPA: ";
+    cin &gt;&gt; s[countStudents].cgpa;
+
+    countStudents++;
+    cout &lt;&lt; "Student added successfully!\n";
 }
 
-// Function to sort students by name (required for Binary Search)
-void sortByName(vector&lt;Student&gt; &amp;list) {
-    sort(list.begin(), list.end(), [](Student a, Student b) {
-        return a.name &lt; b.name;
-    });
+// Display all students
+void displayStudents() {
+    if (countStudents == 0) {
+        cout &lt;&lt; "No students to display.\n";
+        return;
+    }
+
+    cout &lt;&lt; "\n--- Student Records ---\n";
+    for (int i = 0; i &lt; countStudents; i++) {
+        cout &lt;&lt; "ID: " &lt;&lt; s[i].id
+             &lt;&lt; ", Name: " &lt;&lt; s[i].name
+             &lt;&lt; ", CGPA: " &lt;&lt; s[i].cgpa &lt;&lt; "\n";
+    }
 }
 
-// Binary Search by name
-void binarySearch(const vector&lt;Student&gt; &amp;list, string name) {
-    int left = 0;
-    int right = list.size() - 1;
+// Binary Search by ID
+void binarySearchByID() {
+    if (countStudents == 0) {
+        cout &lt;&lt; "No students in database.\n";
+        return;
+    }
+
+    int key;
+    cout &lt;&lt; "Enter ID to search: ";
+    cin &gt;&gt; key;
+
+    int low = 0, high = countStudents - 1;
     bool found = false;
 
-    while (left &lt;= right) {
-        int mid = left + (right - left) / 2;
-        if (list[mid].name == name) {
-            cout &lt;&lt; "\nFound: ID=" &lt;&lt; list[mid].id &lt;&lt; ", Name=" &lt;&lt; list[mid].name &lt;&lt; ", CGPA=" &lt;&lt; list[mid].cgpa &lt;&lt; "\n";
+    while (low &lt;= high) {
+        int mid = (low + high) / 2;
+
+        if (s[mid].id == key) {
+            cout &lt;&lt; "\nStudent Found:\n";
+            cout &lt;&lt; "ID: " &lt;&lt; s[mid].id
+                 &lt;&lt; ", Name: " &lt;&lt; s[mid].name
+                 &lt;&lt; ", CGPA: " &lt;&lt; s[mid].cgpa &lt;&lt; "\n";
             found = true;
             break;
-        } 
-        else if (list[mid].name &lt; name) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
         }
+        else if (s[mid].id &lt; key)
+            low = mid + 1;
+        else
+            high = mid - 1;
     }
 
-    if (!found) {
-        cout &lt;&lt; "Student not found!\n";
-    }
+    if (!found)
+        cout &lt;&lt; "Student ID not found.\n";
 }
 
+// Main menu
 int main() {
-    vector&lt;Student&gt; students;
     int choice;
-    string name;
-
-    while (true) {
-        cout &lt;&lt; "\n--- STUDENT DATABASE ---\n";
-        cout &lt;&lt; "1. Add Student\n2. Show Students\n3. Search by Name (Binary Search)\n4. Exit\n";
-        cout &lt;&lt; "Enter choice: ";
+    do {
+        cout &lt;&lt; "\n=== Student Database (Binary Search) ===\n";
+        cout &lt;&lt; "1. Add Student\n2. Display Students\n3. Search by ID\n4. Exit\n";
+        cout &lt;&lt; "Enter your choice: ";
         cin &gt;&gt; choice;
         cin.ignore();
 
-        if (choice == 1) addStudent(students);
-        else if (choice == 2) showStudents(students);
-        else if (choice == 3) {
-            if (students.empty()) {
-                cout &lt;&lt; "No students to search!\n";
-                continue;
-            }
-            sortByName(students); // Binary Search requires sorted list
-            cout &lt;&lt; "Enter name to search: ";
-            getline(cin, name);
-            binarySearch(students, name);
+        switch (choice) {
+            case 1: addStudent(); break;
+            case 2: displayStudents(); break;
+            case 3: binarySearchByID(); break;
+            case 4: cout &lt;&lt; "Exiting...\n"; break;
+            default: cout &lt;&lt; "Invalid choice!\n";
         }
-        else if (choice == 4) {
-            cout &lt;&lt; "Exiting...\n";
-            break;
-        }
-        else cout &lt;&lt; "Invalid choice!\n";
-    }
+    } while (choice != 4);
+
     return 0;
 }
 </pre>
+
 
 
         <!-- Separeate Code  -->
